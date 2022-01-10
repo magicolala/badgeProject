@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-8">
+
+            <h1>Commentaires</h1>
+            {% for comment in comments %}
+                <strong>{{ comment.user.username() }}</strong><br>
+                {{ comment.content }}
+                {% if not loop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
+            <h1 class="mt-5">Ajouter un commentaire</h1>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Commenter</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-4">
+            <h2>Mes badges</h2>
+            {% if badgeUnlocks is empty %}
+                Vous n'avez pas de badge :(
+            {% else %}
+                <ul class="list-group">
+                    {% for badge in badgeUnlocks %}
+                        <li class="list-group-item">{{ badge.badge.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
